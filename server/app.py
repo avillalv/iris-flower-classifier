@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import os
-from model import Model
+from server.model import Model
 
 app = Flask(
     __name__,
