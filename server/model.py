@@ -3,7 +3,10 @@ import joblib
 import pandas as pd
 
 class Model:
-    def __init__(self, model_path="../models/iris_model.pkl"):
+    def __init__(self, model_path=None):
+        if model_path is None:
+            model_path = os.path.join(os.path.dirname(__file__), "../models/iris_model.pkl")
+        
         self.model_path = model_path
         self.model = None
         self.load_model()
