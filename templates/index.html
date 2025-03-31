@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iris Flower Classifier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center px-4">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-6">Enter Iris Flower Data</h1>
+    <form class="space-y-6">
+      <!-- Sepal Length -->
+      <div>
+        <label for="sepal_length" class="block text-sm font-medium mb-2">Sepal Length (cm): <span id="sepal_length_value">4.3</span></label>
+        <input type="range" id="sepal_length" name="sepal_length" min="4.3" max="7.9" step="0.1" value="4.3" 
+               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+               oninput="document.getElementById('sepal_length_value').textContent = this.value">
+      </div>
+
+      <!-- Sepal Width -->
+      <div>
+        <label for="sepal_width" class="block text-sm font-medium mb-2">Sepal Width (cm): <span id="sepal_width_value">2.0</span></label>
+        <input type="range" id="sepal_width" name="sepal_width" min="2.0" max="4.4" step="0.1" value="2.0" 
+               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+               oninput="document.getElementById('sepal_width_value').textContent = this.value">
+      </div>
+
+      <!-- Petal Length -->
+      <div>
+        <label for="petal_length" class="block text-sm font-medium mb-2">Petal Length (cm): <span id="petal_length_value">1.0</span></label>
+        <input type="range" id="petal_length" name="petal_length" min="1.0" max="6.9" step="0.1" value="1.0" 
+               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+               oninput="document.getElementById('petal_length_value').textContent = this.value">
+      </div>
+
+      <!-- Petal Width -->
+      <div>
+        <label for="petal_width" class="block text-sm font-medium mb-2">Petal Width (cm): <span id="petal_width_value">0.1</span></label>
+        <input type="range" id="petal_width" name="petal_width" min="0.1" max="2.5" step="0.1" value="0.1" 
+               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+               oninput="document.getElementById('petal_width_value').textContent = this.value">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="bg-white text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-gray-300">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <div id="result-container" class="bg-gray-800 p-8 rounded-lg  w-full max-w-md mt-6 text-center hidden">
+        <h2 class="text-lg font-bold text-center mb-4">Prediction Complete! </h2>
+        <div id="result-content" class="text-md space-y-2">
+
+        </div>
+    </div>
+
+    <!-- Social Links -->
+    <div class="flex justify-center space-x-4 mt-6">
+      <!-- GitHub Icon -->
+      <a href="https://github.com/your-github-profile" target="_blank" class="text-gray-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.263.793-.587v-2.17c-3.338.725-4.033-1.613-4.033-1.613-.547-1.387-1.333-1.755-1.333-1.755-1.09-.745.083-.73.083-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.493.997.107-.775.42-1.305.763-1.605-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.467-2.38 1.237-3.22-.123-.303-.537-1.523.117-3.176 0 0 1.01-.323 3.3 1.23a11.47 11.47 0 013.003-.403c1.02.005 2.047.137 3.003.403 2.29-1.553 3.3-1.23 3.3-1.23.653 1.653.24 2.873.117 3.176.77.84 1.237 1.91 1.237 3.22 0 4.61-2.807 5.625-5.48 5.92.43.37.813 1.1.813 2.22v3.293c0 .323.193.707.8.587C20.565 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <!-- LinkedIn Icon -->
+      <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="text-gray-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.25c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.25h-3v-5.5c0-1.378-.028-3.152-1.92-3.152-1.92 0-2.213 1.5-2.213 3.05v5.602h-3v-10h2.88v1.367h.041c.4-.756 1.377-1.553 2.835-1.553 3.031 0 3.59 1.995 3.59 4.59v5.596z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <!-- Footer-like Info -->
+  <div class="text-center text-gray-500 text-sm mt-4">
+    <p>Created by: Anthony Villalvazo-Cadena</p>
+    <p>Published: March 30, 2025</p>
+  </div>
+
+
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+
+    
+</body>
+</html>
