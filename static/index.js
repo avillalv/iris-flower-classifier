@@ -20,12 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
       petal_width: petalWidth,
     };
 
-    // Dynamically construct the server URL
-    const baseUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
-    const endpoint = `${baseUrl}/submit`;
-
     // Send the data to the server using a POST request
-    fetch(endpoint, {
+    fetch('/submit', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
